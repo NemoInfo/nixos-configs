@@ -277,7 +277,7 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.api.nvim_buf_set_keymap(0, "n", "<leader>v", ":VimtexView<CR>", { noremap = true, silent = true })
   end,
 })
- 
+
 -- Configure Texlab
 lspconfig.texlab.setup({
   settings = {
@@ -323,8 +323,8 @@ dashboard.section.buttons.val = {
   dashboard.button("SPC f f", "󰍉  Find file"), -- Find file
   dashboard.button("SPC f r", "  Recent"), -- Recent files
   dashboard.button("SPC f g", "  Grep"), -- Grep
-  dashboard.button("c", "  Configuration", ":e $MYVIMRC<CR>"), -- Open neovim config
-  dashboard.button("h", "  Home manager", ":e ~/.config/home-manager/home.nix<CR>"), -- Open home manager
+  dashboard.button("c", "  Configuration", ":e ~/.dotfiles/init.lua<CR>"), -- Open neovim config
+  dashboard.button("h", "  Home manager", ":e ~/.dotfiles/home.nix<CR>"), -- Open home manager
   dashboard.button("t", "󰆍  Terminal", ":terminal<CR>i"), -- Open home manager
   dashboard.button("q", "󰈆  Quit NVIM", ":qa<CR>"), -- Quit Neovim
 }
