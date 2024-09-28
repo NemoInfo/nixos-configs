@@ -1,10 +1,37 @@
-{ config, lib, pkgs, ... }:
+{ pkgs, username, ... }:
+let homeDirectory = "/home/${username}";
+in {
+  imports = [ ./hyprland.nix ];
 
-{
-  home.username = "aaron";
-  home.homeDirectory = "/home/aaron";
+  nix = {
+    package = pkgs.nix;
+    settings = { experimental-features = [ "nix-command" "flakes" ]; };
+    warn-diry = false;
+  };
 
-  home.stateVersion = "23.11"; # Please read the comment before changing.
+  home = {
+    inherit username homeDirectory;
+    sessionVariables = {
+      QT_XCB_GL_INTEGRATION = "none";
+      NIXPKGS_ALLOW_UNFREE = "1";
+      NIXPKGS_ALLOW_INSECURE = "1";
+      BAT_THEME = "base16";
+      EDITOR = "nvim";
+    };
+
+    sessionPath = [ "$HOME/.local/bin" ];
+
+    stateVersion = "23.11";
+  };
+
+  services = {
+    kdeconnect = {
+      enable = true;
+      indicator = true; # sus
+    };
+  };
+
+  programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
     xclip
@@ -36,16 +63,12 @@
     pavucontrol
   ];
 
-  home.file = { };
-
-  home.sessionVariables = { EDITOR = "nvim"; };
-
-  gtk = {
-    enable = true;
-    theme.name = "Breeze-Dark";
-    cursorTheme.name = "Bibata-Modern-Ice";
-    iconTheme.name = "GruvboxPlus";
-  };
+#   gtk = {
+#     enable = true;
+#     theme.name = "Breeze-Dark";
+#     cursorTheme.name = "Bibata-Modern-Ice";
+#     iconTheme.name = "GruvboxPlus";
+#   };
 
   programs.zsh = {
     enable = true;
@@ -127,19 +150,5 @@
         IdentityFile ~/.ssh/id_ed25519
         IdentitiesOnly yes 
     '';
-  };
-
-  programs.home-manager.enable = true;
-
-  qt = { # I like your funny words magic man
-    enable = true;
-    style.package = pkgs.libsForQt5.breeze-qt5;
-    style.name = "breeze-dark";
-    platformTheme.name = "kde";
-  };
-
-  home.sessionVariables = {
-    GTK_THEME = "Breeze-Dark";
-    NIXOS_OZONE_WL = 1;
   };
 }
