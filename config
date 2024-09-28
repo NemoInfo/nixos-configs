@@ -1,0 +1,186 @@
+{
+	"layer" : "top",
+  "position" : "top",
+  "height" : 35,
+  "margin" : "7 7 3 7",
+  "spacing" : 2,
+
+	"modules-left" : [
+		"group/power",
+		"group/battery",
+		"group/pulseaudio"
+	],
+
+	"modules-center" : [
+		"hyprland/workspaces",
+	],
+
+	"modules-right" : [
+		"group/time",
+		"tray",
+	],
+
+  "group/power" : {
+    "orientation" : "horizontal",
+    "drawer" : {
+      "transition-duration" : 500,
+      "children-class" : "not-power",
+			"transition-left-to-right" : true,
+    },
+    "modules" : [
+			"custom/os",
+      "custom/quit",
+      "custom/power",
+      "custom/reboot",
+    ],
+  },
+
+  "custom/os" : {
+    "format" : " {} ",
+    "exec" : "echo \"\" ",
+    "interval" : "once",
+    "on-click" : "nwggrid-wrapper",
+    "tooltip" : false,
+  },
+
+  "custom/quit" : {
+    "format" : "󰍃",
+    "tooltip" : false,
+    "on-click" : "hyprctl dispatch exit",
+  },
+  "custom/reboot" : {
+    "format" : "󰜉",
+    "tooltip" : false,
+    "on-click" : "reboot",
+  },
+  "custom/power" : {
+    "format" : "󰐥",
+    "tooltip" : false,
+    "on-click" : "shutdown now",
+  },
+
+  "battery" : {
+    "states" : {
+      "good" : 75,
+      "warning" : 30,
+      "critical" : 15,
+    },
+    "fullat" : 80,
+    "format" : "{icon}",
+    "format-charging" : "󰂄",
+    "format-plugged" : "󰂄",
+    "format-full" : "󰁹",
+    "format-icons" : [ "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹" ],
+    "interval" : 10,
+  },
+  "battery#text" : {
+    "states" : {
+      "good" : 75,
+      "warning" : 30,
+      "critical" : 15,
+    },
+    "fullat" : 80,
+    "format" : "{capacity}%",
+  },
+
+  "group/battery" : {
+    "orientation" : "horizontal",
+    "drawer" : {
+      "transition-duration" : 500,
+      "transition-left-to-right" : true,
+    },
+    "modules" : [ "battery", "battery#text" ],
+  },
+
+  "hyprland/workspaces" : {
+    "format" : "{icon}",
+    "format-icons" : {
+      "1" : "1",
+      "2" : "2",
+      "3" : "3",
+      "4" : "4",
+      "5" : "5",
+      "6" : "6",
+      "7" : "7",
+      "8" : "8",
+      "9" : "9",
+      "scratch_term" : "_",
+      "scratch_ranger" : "_󰴉",
+      "scratch_music" : "_",
+      "scratch_btm" : "_",
+      "scratch_pavucontrol" : "_󰍰",
+    },
+    "on-click" : "activate",
+    "on-scroll-up" : "hyprnome",
+    "on-scroll-down" : "hyprnome --previous",
+    "all-outputs" : false,
+    "active-only" : false,
+    "ignore-workspaces" : ["scratch", "-"],
+    "show-special" : false,
+  },
+
+	"tray" : {
+		"spacing": 10,
+	},
+
+  "clock#time" : {
+    "interval" : 1,
+    "format" : "{:%H:%M:%S}",
+    "timezone" : "Europe/London",
+  },
+  "clock#date" : {
+    "interval" : 1,
+    "format" : "{:%a %d-%m-%Y}",
+    "timezone" : "Europe/London",
+  },
+  "group/time" : {
+    "orientation" : "horizontal",
+    "drawer" : {
+      "transition-duration" : 500,
+      "transition-left-to-right" : false,
+    },
+    "modules" : [ "clock#time", "clock#date" ],
+  },
+
+  "pulseaudio" : {
+    "scroll-step" : 1,
+    "format" : "{icon}",
+    "format-bluetooth" : "{icon}",
+    "format-bluetooth-muted" : "󰸈",
+    "format-muted" : "󰸈",
+    "format-source" : "",
+    "format-source-muted" : "",
+    "format-icons" : {
+      "headphone" : "",
+      "hands-free" : "",
+      "headset" : "",
+      "phone" : "",
+      "portable" : "",
+      "car" : "",
+      "default" : [ " ", " ", " " ],
+    },
+		"on-click": "bash -c 'hyprctl dispatch togglespecialworkspace scratch_pavucontrol; if hyprctl clients | grep -q pavucontrol; then echo \"scratch_ranger respawn not needed\"; else pavucontrol; fi'"
+  },
+
+  "pulseaudio#text" : {
+    "scroll-step" : 1,
+    "format" : "{volume}%",
+    "format-bluetooth" : "{volume}%",
+    "format-bluetooth-muted" : "",
+    "format-muted" : "",
+    "format-source" : "{volume}%",
+    "format-source-muted" : "",
+		"on-click": "bash -c 'hyprctl dispatch togglespecialworkspace scratch_pavucontrol; if hyprctl clients | grep -q pavucontrol; then echo \"scratch_ranger respawn not needed\"; else pavucontrol; fi'"
+  },
+  "group/pulseaudio" : {
+    "orientation" : "horizontal",
+    "drawer" : {
+      "transition-duration" : 500,
+      "transition-left-to-right" : true,
+    },
+    "modules" : [ "pulseaudio", "pulseaudio#text" ],
+  },
+
+	"reload_style_on_change" : true,
+}
+

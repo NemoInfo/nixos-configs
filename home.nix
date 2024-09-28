@@ -26,6 +26,14 @@
     nil # nix lsp
     haskellPackages.nixfmt
     lazygit
+
+    libsForQt5.qt5ct
+    libsForQt5.breeze-qt5
+    libsForQt5.breeze-icons
+    noto-fonts-monochrome-emoji
+    hyprpaper
+    hyprnome
+    pavucontrol
   ];
 
   home.file = { };
@@ -34,7 +42,7 @@
 
   gtk = {
     enable = true;
-    theme.name = "adw-gtk3";
+    theme.name = "Breeze-Dark";
     cursorTheme.name = "Bibata-Modern-Ice";
     iconTheme.name = "GruvboxPlus";
   };
@@ -53,6 +61,7 @@
       cfn = "nvim ~/.config/nvim/init.lua";
       cfo = "sudo nvim /etc/nixos/configuration.nix";
     };
+    initExtra = "neofetch";
   };
 
   programs.neovim = {
@@ -121,4 +130,16 @@
   };
 
   programs.home-manager.enable = true;
+
+  qt = { # I like your funny words magic man
+    enable = true;
+    style.package = pkgs.libsForQt5.breeze-qt5;
+    style.name = "breeze-dark";
+    platformTheme.name = "kde";
+  };
+
+  home.sessionVariables = {
+    GTK_THEME = "Breeze-Dark";
+    NIXOS_OZONE_WL = 1;
+  };
 }

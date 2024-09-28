@@ -5,9 +5,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -23,18 +21,19 @@
     fsType = "ext4";
   };
 
+  # Enable hyperland
+  services.xserver.displayManager.gdm.wayland = true;
+
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
+
   networking.hostName = "nixos"; # Define your hostname.
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable =
-    true; # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/London";
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -42,6 +41,12 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    extraPortals =
+      [ pkgs.xdg-desktop-portal-hyprland ];
+  };
 
   # Configure keymap in X11
   services.xserver.xkb.layout = "gb";
@@ -65,13 +70,13 @@
     isNormalUser = true;
     extraGroups =
       [ "wheel" "networkmanager" "audio" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [ google-chrome neofetch tree ];
+    packages = with pkgs; [ google-chrome neofetch tree fuzzel ];
     shell = pkgs.zsh;
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [ vim wget git home-manager ];
+  environment.systemPackages = with pkgs; [ vim wget git home-manager waybar ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -84,13 +89,9 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
   networking.firewall.enable = false;
 
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 
   hardware.nvidia = {
     modesetting.enable = true;
