@@ -75,6 +75,7 @@
       [ "audio" "libvirtd" "nixosvmtest" "networkmanager" "video" "wheel" ];
     shell = pkgs.zsh; # TODO: maybe remove
   };
+  programs.zsh.enable = true;
 
   # Enable hyperland
   #   services.xserver.displayManager.gdm.wayland = true;
@@ -112,7 +113,6 @@
   #   # Enable the OpenSSH daemon.
   #   services.openssh.enable = true;
   # 
-  #  programs.zsh.enable = true;
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;

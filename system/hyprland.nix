@@ -2,7 +2,7 @@
 let
   conf = pkgs.writeText "config" ''
     exec-once = swww init 
-    exec-once = swww img ${~/Pictures/wallpaper.jpg}
+    exec-once = swww img ${/home/aaron/Pictures/wallpaper.jpg}
     misc {
       disable_hyprland_logo = true;
       disable_splash_logo = true;
@@ -14,6 +14,12 @@ let
   '';
 in {
   services.xserver.displayManager.startx.enable = true;
+
+  services.greetd = {
+    enable = true;
+    settings.default_session_command = "Hyprland --config ${conf}";
+  };
+
   programs.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.hyprland;
@@ -31,12 +37,12 @@ in {
     pam.services.ags = { };
   };
 
-  environment.systemPackages = with pkgs.gnome; [
-    pkgs.swww
-    pkgs.loupe
+  environment.systemPackages = with pkgs; [
+    swww
+    loupe
     adwaita-icon-theme
-    pkgs.nautilus
-    pkgs.baobab
+    nautilus
+    baobab
     gnome-calendar
     gnome-boxes
     gnome-system-monitor
@@ -56,7 +62,7 @@ in {
       serviceConfig = {
         Type = "simple";
         ExecStart =
-          "${pkgs.polkit-gnome}/libexec/polkit-gnome-authentication-agent-1";
+          "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
         Restart = "on-failure";
         RestartSec = 1;
         TimeoutStopSec = 10;
@@ -75,7 +81,7 @@ in {
       evolution-data-server.enable = true;
       glib-networking.enable = true;
       gnome-keyring.enable = true;
-      gnome-online-accounts = true;
+      gnome-online-accounts.enable = true;
     };
   };
 }

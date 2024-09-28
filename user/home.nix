@@ -5,8 +5,10 @@ in {
 
   nix = {
     package = pkgs.nix;
-    settings = { experimental-features = [ "nix-command" "flakes" ]; };
-    warn-diry = false;
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      warn-dirty = false;
+    };
   };
 
   home = {
@@ -63,12 +65,12 @@ in {
     pavucontrol
   ];
 
-#   gtk = {
-#     enable = true;
-#     theme.name = "Breeze-Dark";
-#     cursorTheme.name = "Bibata-Modern-Ice";
-#     iconTheme.name = "GruvboxPlus";
-#   };
+  #   gtk = {
+  #     enable = true;
+  #     theme.name = "Breeze-Dark";
+  #     cursorTheme.name = "Bibata-Modern-Ice";
+  #     iconTheme.name = "GruvboxPlus";
+  #   };
 
   programs.zsh = {
     enable = true;

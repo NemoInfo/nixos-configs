@@ -35,7 +35,7 @@
       };
       homeConfigurations."aaron" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        extraspecialArgs = { inherit inputs username; };
+        extraSpecialArgs = { inherit inputs username; };
         modules = [ ./user/home.nix ];
       };
     };
