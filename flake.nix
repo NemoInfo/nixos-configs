@@ -3,40 +3,65 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/Hyprland";
+
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
-      inputs.nixpkgs.follows = "hyprland";
+      inputs.hyprland.follows = "hyprland";
     };
-    more-waita = {
-      url = "github:somepaulo/MoreWaita";
+
+    hyprland-hyprspace = {
+      url = "github:KZDKM/Hyprspace";
+      inputs.hyprland.follows = "hyprland";
+    };
+
+    matugen.url = "github:InioX/matugen?ref=v2.2.0";
+    ags.url = "github:Aylur/ags";
+    astal.url = "github:Aylur/astal";
+
+    lf-icons = {
+      url = "github:gokcehan/lf";
       flake = false;
     };
-
-    ags.url = "github:Aylur/ags";
   };
 
-  outputs = { nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
       username = "aaron";
+      hostname = "nixos";
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-      };
+      }; 
     in {
-      nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs username system; };
+      packages.x86_64-linux.default =
+        nixpkgs.legacyPackages.x86_64-linux.callPackage ./ags {
+          inherit inputs;
+        };
+
+      nixosConfigurations."${hostname}" = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs username hostname system;
+          asztal = self.packages.x86_64-linux.default;
+        };
         modules = [ ./system/configuration.nix ];
       };
-      homeConfigurations."aaron" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = { inherit inputs username; };
-        modules = [ ./user/home.nix ];
-      };
+
+      homeConfigurations."${username}" =
+        home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = {
+            inherit inputs username hostname system;
+            asztal = self.packages.x86_64-linux.default;
+          };
+          modules = [ ./user/home.nix ];
+        };
     };
 }

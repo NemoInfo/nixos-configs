@@ -1,7 +1,11 @@
-{ pkgs, username, ... }:
-let homeDirectory = "/home/${username}";
-in {
-  imports = [ ./hyprland.nix ];
+{ config, pkgs, username, ... }: {
+  imports = [
+    ./ags.nix
+    # ./git.nix
+    ./hyprland.nix
+    # ./packages.nix
+    ./theme.nix
+  ];
 
   nix = {
     package = pkgs.nix;
@@ -12,7 +16,8 @@ in {
   };
 
   home = {
-    inherit username homeDirectory;
+    inherit username;
+    homeDirectory = "/home/${username}";
     sessionVariables = {
       QT_XCB_GL_INTEGRATION = "none";
       NIXPKGS_ALLOW_UNFREE = "1";
@@ -26,6 +31,21 @@ in {
     stateVersion = "23.11";
   };
 
+  gtk.gtk3.bookmarks = let home = config.home.homeDirectory;
+  in [
+    "file://${home}/Documents"
+    "file://${home}/Music"
+    "file://${home}/Pictures"
+    "file://${home}/Videos"
+    "file://${home}/Downloads"
+    "file://${home}/Desktop"
+    "file://${home}/Work"
+    "file://${home}/Projects"
+    "file://${home}/Vault"
+    "file://${home}/School"
+    "file://${home}/.config Config"
+  ];
+
   services = {
     kdeconnect = {
       enable = true;
@@ -37,7 +57,6 @@ in {
 
   home.packages = with pkgs; [
     xclip
-    python3
     pyright
     yapf
     stylua
@@ -56,21 +75,9 @@ in {
     haskellPackages.nixfmt
     lazygit
 
-    libsForQt5.qt5ct
-    libsForQt5.breeze-qt5
-    libsForQt5.breeze-icons
-    noto-fonts-monochrome-emoji
-    hyprpaper
-    hyprnome
-    pavucontrol
+    google-chrome
+    neofetch
   ];
-
-  #   gtk = {
-  #     enable = true;
-  #     theme.name = "Breeze-Dark";
-  #     cursorTheme.name = "Bibata-Modern-Ice";
-  #     iconTheme.name = "GruvboxPlus";
-  #   };
 
   programs.zsh = {
     enable = true;
@@ -116,8 +123,8 @@ in {
       vim-fugitive
     ];
   };
-  home.file.".config/nvim/init.lua".source = ./init.lua;
-  home.file.".config/sioyek/prefs_user.config".source = ./sioyek.config;
+  home.file.".config/nvim/init.lua".source = ../user/init.lua;
+  home.file.".config/sioyek/prefs_user.config".source = ../user/sioyek.config;
 
   programs.alacritty = {
     enable = true;
