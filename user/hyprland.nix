@@ -127,6 +127,7 @@ in {
         "SUPER, F, togglefloating"
         "SUPER, G, fullscreen"
         "SUPER, P, togglesplit"
+        "SUPER, S, togglespecialworkspace"
 
         (mvfocus "k" "u")
         (mvfocus "j" "d")
@@ -178,7 +179,7 @@ in {
 
         blur = {
           enabled = true;
-          size = 2;
+          size = 3;
           passes = 3;
           new_optimizations = "on";
           noise = 1.0e-2;

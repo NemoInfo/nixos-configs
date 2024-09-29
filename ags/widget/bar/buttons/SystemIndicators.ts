@@ -62,7 +62,7 @@ const BluetoothIndicator = () => Widget.Overlay({
     overlay: Widget.Label({
         hpack: "end",
         vpack: "start",
-        label: bluetooth.bind("connected_devices").as(c => `${c.length}`),
+        label: bluetooth.bind("connected_devices").as(c => ` ${c.length}`),
         visible: bluetooth.bind("connected_devices").as(c => c.length > 0),
     }),
 })
