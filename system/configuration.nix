@@ -18,18 +18,4 @@
     shell = pkgs.zsh; # TODO: maybe remove
   };
   programs.zsh.enable = true;
-
-#   home-manager = {
-#     backupFileExtension = "backup";
-#     useGlobalPkgs = true;
-#     useUserPackages = true;
-#     extraSpecialArgs = { inherit inputs; };
-#     users.${username} = {
-#       home.username = username;
-#       home.homeDirectory = "/home/${username}";
-#       imports = [
-#         ../user/home.nix # x
-#       ];
-#     };
-#   };
 }
