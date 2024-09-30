@@ -1,5 +1,4 @@
-{pkgs, ...}:
-{
+{ pkgs, ... }: {
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -25,6 +24,7 @@
       vimtex
       lazygit-nvim
       vim-fugitive
+      rust-tools-nvim
     ];
   };
 

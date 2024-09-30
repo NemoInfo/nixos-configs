@@ -31,7 +31,7 @@ vim.keymap.set("n", "<leader>bp", ":bp<CR>", { noremap = true })                
 vim.keymap.set("n", "<leader>bn", ":bn<CR>", { noremap = true })                             -- Next Buffer
 
 -- Configure clipboard
-vim.opt.clipboard:append("unnamedplus") 
+vim.opt.clipboard:append("unnamedplus")
 --[[**************************************@******************************************
 *                                      THEME                                        *
 *********************************************************************************--]]
@@ -175,6 +175,7 @@ null_ls.setup({
     null_ls.builtins.formatting.stylua,
     null_ls.builtins.formatting.latexindent,
     null_ls.builtins.formatting.nixfmt,
+    null_ls.builtins.formatting.rustfmt,
   },
 
   -- Format on save
@@ -232,6 +233,17 @@ lspconfig.nil_ls.setup({
         command = { "nixfmt" },
       },
     },
+  },
+})
+
+--[[**************************************@******************************************
+*                                        RUST                                       *
+*********************************************************************************--]]
+local rt = require("rust-tools")
+
+rt.setup({
+  server = {
+    on_attach = on_attach,
   },
 })
 
