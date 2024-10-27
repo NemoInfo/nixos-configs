@@ -9,6 +9,13 @@
       theme = "robbyrussell";
     };
     shellAliases = { };
-    initExtra = "neofetch";
+    initExtra = ''
+      if [[ -n "$THEME" ]]; then
+        ZSH_THEME="$THEME"
+      fi
+      source $ZSH/oh-my-zsh.sh
+
+      eval "$RUN"
+    '';
   };
 }

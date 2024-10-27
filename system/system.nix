@@ -39,7 +39,7 @@
 
   # logind
   services.logind.extraConfig = ''
-    HandleLidSwitch=ignore
+    HandlePowerKey=ignore
     HandleLidSwitch=suspend
     HandleLidSwitchExternalPower=ignore
   '';

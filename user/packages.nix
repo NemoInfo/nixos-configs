@@ -6,11 +6,15 @@
     alacritty
     icon-library
     nerdfonts
+    discord
 
     # cli tools
     ripgrep
     lazygit
     neofetch
+    cmatrix
+    railway
+    cloc
 
     # languages
     gcc # C compiler
@@ -19,7 +23,13 @@
     lua-language-server # Lua lsp
     stylua # Lua fmt
     texlab # TeX Lsp
-    texliveMedium # TeX
+    (pkgs.texlive.combine {
+      inherit (pkgs.texlive)
+        scheme-medium # The basics
+        cleveref # Smart referencing
+        enumitem adjustbox upquote tcolorbox pdfcol environ # Jupyter export
+        titling; # Jupyter export
+    }) # TeX
     biber # BibLaTex backend
     pyright # Python Lsp
     yapf # Pythin fmt

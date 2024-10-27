@@ -6,7 +6,10 @@ window#quicksettings .quicksettings {
 
     .avatar {
         @include widget;
-        border-radius: $radius * 3;
+        border-radius: 50%;
+        border-style: solid;
+        border-width: 2px;
+        border-color: $primary-bg;
     }
 
     .header {

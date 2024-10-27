@@ -1,5 +1,6 @@
 { config, ... }: {
   hardware.enableAllFirmware = true;
+  boot.kernelModules = [ "uvcvideo" ]; 
 
   hardware.graphics = {
     enable = true;
