@@ -97,7 +97,7 @@ require("lualine").setup({
 *********************************************************************************--]]
 local builtin = require("telescope.builtin")
 local hno = {
-  hidden = true,    --  Include hidden files
+  hidden = true,   --  Include hidden files
   no_ignore = true, -- Don't respect .gitignore
 }
 
@@ -140,24 +140,24 @@ cmp.setup({
 *                                        LSP                                        *
 *********************************************************************************--]]
 vim.diagnostic.config({
-  virtual_text = true,      --  Show diagnostics as virtual text (inline)
-  signs = true,             --	 Show signs in the gutter
-  underline = true,         --  Underline problematic code
+  virtual_text = true,     --  Show diagnostics as virtual text (inline)
+  signs = true,            --	 Show signs in the gutter
+  underline = true,        --  Underline problematic code
   update_in_insert = false, -- Don't show diagnostics while typing
-  severity_sort = true,     --  Sort diagnostics by severity
+  severity_sort = true,    --  Sort diagnostics by severity
 })
 vim.o.signcolumn = "yes"
 
 local on_attach = function(_, bufnr)
   local opts = { noremap = true, silent = true, buffer = bufnr }
   -- Define key mappings for LSP functions
-  vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)             -- Go to definition
-  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)         -- Go to implementation
-  vim.keymap.set("n", "<leader>lr", vim.lsp.buf.references, opts)     -- Find references
-  vim.keymap.set("n", "<leader>ld", vim.lsp.buf.hover, opts)          -- Hover documentation
+  vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)            -- Go to definition
+  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)        -- Go to implementation
+  vim.keymap.set("n", "<leader>lr", vim.lsp.buf.references, opts)    -- Find references
+  vim.keymap.set("n", "<leader>ld", vim.lsp.buf.hover, opts)         -- Hover documentation
   vim.keymap.set("n", "<leader>lh", vim.lsp.buf.signature_help, opts) -- Signature hint
-  vim.keymap.set("n", "<leader>ln", vim.lsp.buf.rename, opts)         -- Rename variable
-  vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)    -- Code actions
+  vim.keymap.set("n", "<leader>ln", vim.lsp.buf.rename, opts)        -- Rename variable
+  vim.keymap.set("n", "<leader>la", vim.lsp.buf.code_action, opts)   -- Code actions
   vim.keymap.set("n", "<leader>le", function()
     vim.diagnostic.goto_next()
     vim.cmd("normal! zz")
@@ -190,6 +190,17 @@ null_ls.setup({
     end
   end,
 })
+
+--[[**************************************@******************************************
+*                                       C/C++                                       *
+*********************************************************************************--]]
+require("lspconfig").clangd.setup({
+  cmd = { "clangd" }, 
+  filetypes = { "c", "cpp", "objc", "objcpp" },
+  root_dir = require("lspconfig.util").root_pattern("compile_commands.json", ".git"),
+  single_file_support = true,
+})
+
 --[[**************************************@******************************************
 *                                      PYTHON                                       *
 *********************************************************************************--]]
@@ -298,7 +309,7 @@ lspconfig.texlab.setup({
       build = {
         executable = "latexmk",
         args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
-        onSave = true,    -- Automatically build on save
+        onSave = true, -- Automatically build on save
       },
       auxDirectory = ".", -- I should tinker with this
       diagnostics = {
@@ -384,4 +395,3 @@ end
 
 vim.keymap.set("t", "<Esc>", _lazygit_close, { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>g", _lazygit_open, { noremap = true, silent = true })
-

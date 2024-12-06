@@ -7,6 +7,7 @@
     icon-library
     nerdfonts
     discord
+    # virtualbox
 
     # cli tools
     ripgrep
@@ -18,6 +19,7 @@
 
     # languages
     gcc # C compiler
+    clang-tools # CPP lsp
     nil # Nix lsp
     haskellPackages.nixfmt # Nix fmt
     lua-language-server # Lua lsp
