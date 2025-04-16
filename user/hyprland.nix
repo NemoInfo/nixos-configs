@@ -128,6 +128,7 @@ in {
         "SUPER, G, fullscreen"
         "SUPER, P, togglesplit"
         "SUPER, S, togglespecialworkspace"
+        "SUPER, N, exec, alacritty -e nvim"
 
         (mvfocus "k" "u")
         (mvfocus "j" "d")

@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, latest, ... }: {
   home.packages = with pkgs; [
     # apps
     sioyek
@@ -7,6 +7,10 @@
     icon-library
     nerdfonts
     discord
+    inkscape
+    obs-studio
+    vlc
+    # bottles
     # virtualbox
 
     # cli tools
@@ -16,6 +20,7 @@
     cmatrix
     railway
     cloc
+    tree
 
     # languages
     gcc # C compiler
@@ -30,7 +35,9 @@
         scheme-medium # The basics
         cleveref # Smart referencing
         enumitem adjustbox upquote tcolorbox pdfcol environ # Jupyter export
-        titling; # Jupyter export
+        glossaries glossaries-english glossaries-extra pdfcomment datetime2
+        datetime2-english zref marginnote soulpos svg transparent xcolor # .
+        catchfile appendix titling;
     }) # TeX
     biber # BibLaTex backend
     pyright # Python Lsp
@@ -39,5 +46,8 @@
     rustfmt # Rust fmt
     rustc # Rust compiler
     cargo # Rust dependecy manager
+    cudatoolkit
+    (latest.legacyPackages.x86_64-linux.typst) # f*ck latex
+    tinymist # typst lsp
   ];
 }

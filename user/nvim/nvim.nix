@@ -8,7 +8,7 @@
       packer-nvim
       lualine-nvim
       rose-pine
-      telescope-nvim
+      telescope-fzf-native-nvim
       kanagawa-nvim
       nvim-cmp
       cmp-nvim-lsp
@@ -25,6 +25,12 @@
       lazygit-nvim
       vim-fugitive
       rust-tools-nvim
+      coc-ltex
+      julia-vim
+      # typst-preview-nvim # where are these?? 
+      # typst-conceal-vim
+      # nvim-treesitter-parsers.typst
+      typst-vim
     ];
   };
 

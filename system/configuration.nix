@@ -15,9 +15,18 @@
 
   users.users.${username} = {
     isNormalUser = true;
-    extraGroups =
-      [ "audio" "libvirtd" "nixosvmtest" "networkmanager" "video" "wheel" "vboxusers"];
+    extraGroups = [
+      "audio"
+      "libvirtd"
+      "nixosvmtest"
+      "networkmanager"
+      "video"
+      "wheel"
+      "vboxusers"
+    ];
     shell = pkgs.zsh; # TODO: maybe remove
   };
+
   programs.zsh.enable = true;
+  programs.nix-ld.enable = true;
 }

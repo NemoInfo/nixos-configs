@@ -1,4 +1,4 @@
-{ config, pkgs, username, ... }: {
+{ config, pkgs, username, latest, ... }: {
   imports = [
     ./ags.nix
     ./alacritty.nix

@@ -9,6 +9,7 @@
 
   # nix settings
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.cudaSupport = true;
   nix.settings = {
     experimental-features = "nix-command flakes";
     auto-optimise-store = true;
