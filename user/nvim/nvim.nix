@@ -29,6 +29,8 @@
         coc-ltex
         julia-vim
         typst-vim
+        nvim-ufo
+        nvim-treesitter.withAllGrammars
       ];
       new = with latest.legacyPackages.x86_64-linux.vimPlugins; [
         typst-preview-nvim
